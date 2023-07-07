@@ -2,11 +2,9 @@
 
 タイムゾーンまわりの日付処理の検証／Node.js 標準テストランナーの素振り
 
-CodeSandbox（タイムゾーンが違う）上で実行して気づいたいくつかの Hydration Error を修正
-
 ### ESModule
 
-- [0から調べる--moduleResolution bundler](https://zenn.dev/akadori/scraps/412a5f8fc6ea63)
+- [0 から調べる--moduleResolution bundler](https://zenn.dev/akadori/scraps/412a5f8fc6ea63)
 - [サーバーサイドで TypeScript の ESM（ES Modules）プロジェクトを esbuild で bundle する](https://zenn.dev/junkor/articles/2bcd22ca08d21d)
   - tsx を使ってる
 - [まだ ts-node 使ってるの？tsx の紹介 - Qiita](https://qiita.com/ssssota/items/115a906e960bcfabb46b)
@@ -21,7 +19,10 @@ CodeSandbox（タイムゾーンが違う）上で実行して気づいたいく
 ### node:test
 
 - [特定のディレクトリ内の TypeScript ファイルの Node 組み込みテストランナーを実行するには？· 問題 #3902 · nodejs/help](https://github.com/nodejs/help/issues/3902)
-  - 例：[node-test-with-typescript/ at main · scottwillmoore/node-test-with-typescript · GitHub](https://github.com/scottwillmoore/node-test-with-typescript/tree/main)
+  - また、追加の依存関係をインストールしたくない非 Windows ユーザー向けの別のソリューションもあります。`"test": "find ./src -name '\*.spec.ts' -exec node --loader @swc-node/register/esm --test {} \\;"`
+    - https://github.com/nodejs/help/issues/3902#issuecomment-1594672787
+    - https://github.com/kyonenya/timezone-testrunner-playground/issues/1#issue-1793967196
+  - ex. [node-test-with-typescript/ at main · scottwillmoore/node-test-with-typescript · GitHub](https://github.com/scottwillmoore/node-test-with-typescript/tree/main)
 - [Node.js の標準 API にテストランナーが追加された](https://azukiazusa.dev/blog/node-js-api/)
 - [nodejs/node-core-test: Node 18's node:test, as an npm package](https://github.com/nodejs/node-core-test)
   - polyfill

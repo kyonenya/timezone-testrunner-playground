@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "tsc": "tsc -w --noEmit",
-    "test:add": "node --loader tsx ./src/__tests__/add.test.ts"
+    "test:find": "find ./tests -name '*.test.ts' -exec node --loader tsx --test {} \\;"
   },
   "keywords": [],
   "author": "",
