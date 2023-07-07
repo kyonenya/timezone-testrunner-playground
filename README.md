@@ -5,6 +5,9 @@
 ### node:test
 
 - [特定のディレクトリ内の TypeScript ファイルの Node 組み込みテストランナーを実行するには？· 問題 #3902 · nodejs/help](https://github.com/nodejs/help/issues/3902)
+  - node-glob の CLI を使った方法：`"test": "glob -c \"node --loader tsx --no-warnings --test\" \"./tests/**/*.test.ts\"`
+    - [node-test-with-typescript/package.json at main · scottwillmoore/node-test-with-typescript](https://github.com/scottwillmoore/node-test-with-typescript/blob/main/package.json)
+    - [CLI - isaacs/node-glob: glob functionality for node.js](https://github.com/isaacs/node-glob#command-line-interface)
   - また、追加の依存関係をインストールしたくない非 Windows ユーザー向けの別のソリューションもあります。`"test": "find ./src -name '\*.spec.ts' -exec node --loader @swc-node/register/esm --test {} \\;"`
     - https://github.com/nodejs/help/issues/3902#issuecomment-1594672787
     - https://github.com/kyonenya/timezone-testrunner-playground/issues/1#issue-1793967196

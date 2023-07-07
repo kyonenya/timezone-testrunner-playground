@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "tsc": "tsc -w --noEmit",
-    "test:find": "find ./tests -name '*.test.ts' -exec node --loader tsx --test {} \\;"
+    "test": "glob -c 'node --test --no-warnings --loader tsx' './tests/**/*.test.ts'",
+    "test:find": "find ./tests -name '*.test.ts' -exec node --test --no-warnings --loader tsx {} \\;"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +14,7 @@
   "packageManager": "pnpm@8.6.6",
   "devDependencies": {
     "@types/node": "^20.4.0",
+    "glob": "^10.3.1",
     "tsx": "^3.12.7",
     "typescript": "^5.1.6"
   },
