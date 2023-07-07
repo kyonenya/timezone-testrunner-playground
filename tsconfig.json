@@ -105,5 +105,17 @@
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+  },
+  "watchOptions": {
+    // fixedPollingInterval, priorityPollingInterval, dynamicPriorityPolling, useFsEvents, useFsEventsOnParentDirectory
+    // useFsEvents がデフォルトで今まで通り
+    "watchFile": "useFsEventsOnParentDirectory", // ファイルシステムの変更をより効率的に検出する
+    // fixedPollingInterval, dynamicPriorityPolling, useFsEvents
+    // useFsEvents がデフォルトで今まで通り
+    "watchDirectory": "dynamicPriorityPolling",
+    // useFsEvents を選択してた時に利用できなかったらどの戦略で行くか かな
+    // fixedPollingInterval, priorityPollingInterval, dynamicPriorityPolling
+    "fallbackPolling": "dynamicPriority",
+    "synchronousWatchDirectory": false
   }
 }
