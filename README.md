@@ -6,6 +6,7 @@ CodeSandbox（タイムゾーンが違う）上で実行して気づいたいく
 
 ### ESModule
 
+- [まだts-node使ってるの？tsxの紹介 - Qiita](https://qiita.com/ssssota/items/115a906e960bcfabb46b)
 - [esbuild-kit/tsx: ⚡️ TypeScript Execute (tsx): Node.js enhanced with esbuild to run TypeScript & ESM](https://github.com/esbuild-kit/tsx)
 - [サーバーサイドで TypeScript の ESM（ES Modules）プロジェクトを esbuild で bundle する](https://zenn.dev/junkor/articles/2bcd22ca08d21d)
   - tsx を使ってる
@@ -27,5 +28,6 @@ CodeSandbox（タイムゾーンが違う）上で実行して気づいたいく
 
 ### pnpm
 
+- [Node.js バージョン管理に fnm を利用する - くらげになりたい。](https://www.memory-lovers.blog/entry/2022/10/30/100000)
 - [Corepack を使用する方法【npm】【yarn】【pnpm】 - Qiita](https://qiita.com/P-man_Brown/items/a75a042813f9a20768fd)
 - [Corepack の使用 - インストール | pnpm](https://pnpm.io/ja/installation#corepack%E3%81%AE%E4%BD%BF%E7%94%A8)
