@@ -2,7 +2,7 @@ import { describe, it } from "node:test";
 import { equal, deepEqual, notEqual, notDeepEqual } from "node:assert/strict";
 import dayjs from "../dayjs";
 
-describe("dayjs", { skip: true }, () => {
+describe("dayjs", () => {
   it("`dayjs('withoutTimezone')` はローカルタイムゾーンに依存する", () => {
     const str = "2023-07-08 04:52";
 
@@ -81,5 +81,15 @@ describe("dayjs", { skip: true }, () => {
 
     process.env.TZ = "UTC";
     equal(dayjs(str).format("YYYY-MM-DD"), "2023-07-08");
+  });
+
+  it("タイムゾーンなし日付文字列をUTCにパースする", () => {
+    const str = "2023-07-08 04:52";
+
+    process.env.TZ = "Asia/Tokyo";
+    equal(dayjs.tz(str).toISOString(), "2023-07-07T19:52:00.000Z");
+
+    process.env.TZ = "UTC";
+    equal(dayjs.tz(str).toISOString(), "2023-07-07T19:52:00.000Z");
   });
 });

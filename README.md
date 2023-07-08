@@ -4,25 +4,19 @@
 
 ### クラサバで時刻がずれる問題
 
-```typescript
-dayjs("2022-01-01 00:00:00") // DBから取ってきたUTCの時刻、JSTだと午前9時
-  .tz()
-  .format("YYYY-MM-DD HH:mm:ss");
-```
-
-は[一見よく見える](https://zenn.dev/kohki_s/articles/a77ac4badf0f3c)のだが、まさにこれこそがクラサバでずれて Hydration Error になる要因。
-
-- サーバーだと正しく "2022-01-01 **09**:00:00" になる
-  - "2022-01-01 00:00:00" という UTC の時刻を Asia/Tokyo というタイムゾーンに変換した結果なので
-- クライアントだと "2022-01-01 **00**:00:00" になってしまう
-  - "2022-01-01 00:00:00" **という Asia/Tokyo の時刻を** Asia/Tokyo というタイムゾーンに**無変換**した結果なので
-  - 「ローカル環境が日本であれば、Timezone に Asia/Tokyo を設定する/しないにかかわらず同じ値を返します」
-  - [【Next.js】SSR と Timezone について調べてみた【Day.js】 - kk-web](https://kk-web.link/blog/20220427)
-- **結論：クラサバの両方をまたいで `.tz()` ないし `.utc()` 関数を用いてはならない**
-  - これらはれっきとした副作用関数である。自身のタイムゾーンに応じて挙動が変わってしまう
-- というかそもそも `dayjs("2022-01-01 00:00:00")` が副作用関数なのでは？
-  - 「Day.js は、デフォルトでは、オブジェクトを生成すると、ローカルタイム扱いになります」
-    - [タイムゾーンを意識した Day.js オブジェクトの生成 - Qiita](https://qiita.com/tearoom6/items/252afc24cd3f6edc68a5)
+- 結論：dayjs を使ってはいけない
+  - そもそも `dayjs("2022-01-01 00:00:00")` からして副作用関数
+    - 「Day.js は、デフォルトでは、オブジェクトを生成すると、ローカルタイム扱いになります」
+      - [タイムゾーンを意識した Day.js オブジェクトの生成 - Qiita](https://qiita.com/tearoom6/items/252afc24cd3f6edc68a5)
+  - `.format()` も副作用関数
+    - `.tz().format()` は参照透過。もちろん `toISOString()` も
+  - もし dayjs を使うなら `dayjs('ISODateString').tz().format()` と `dayjs.tz('withoutTimezone').toISOString()` 以外使ってはいけない
+    - しかしこの二つの処理では `.tz()` の意味が別だろ？ ~~無理やりメソッドチェーンにするからこんな曖昧な仕様になるんだよ~~
+  - 結局のところ `dayjs` **オブジェクト**も `Date` オブジェクトと欠陥を抱えており、このライブラリには罠が多すぎる
+    - どのメソッドとどのメソッドを組み合わせれば参照透過になるのか、どのメソッドを単体で使うとローカルタイムゾーンという副作用をもつのか、API からまったく見えてこない
+- date-fns を使えば全て解決する
+  - [JavaScript: date-fns でタイムゾーンを扱う - Qiita](https://qiita.com/suin/items/296740d22624b530f93a)
+  - [tests/date-fns.test.ts](https://github.com/kyonenya/timezone-testrunner-playground/blob/main/tests/date-fns.test.ts)
 
 ### timezone
 
