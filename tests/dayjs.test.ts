@@ -5,7 +5,7 @@ import dayjs from "../dayjs";
 describe("dayjs", () => {
   it("`dayjs('withoutTimezone')` はローカルタイムゾーンに依存する", () => {
     const str = "2023-07-08 04:52";
-    
+
     process.env.TZ = "Asia/Tokyo";
     deepEqual(dayjs(str).$d, new Date("2023-07-07T19:52:00.000Z"));
 
@@ -50,7 +50,7 @@ describe("dayjs", () => {
   it("`.tz().format()` はローカルタイムゾーンに依存しない", () => {
     const date1 = dayjs("2023-07-08T04:52:00+09:00");
     const date2 = dayjs("2023-07-07T19:52:00Z");
-    
+
     process.env.TZ = "Asia/Tokyo";
     equal(date1.tz().format(), "2023-07-08T04:52:00+09:00");
     equal(date2.tz().format(), "2023-07-08T04:52:00+09:00");
@@ -59,11 +59,11 @@ describe("dayjs", () => {
     equal(date1.tz().format(), "2023-07-08T04:52:00+09:00");
     equal(date2.tz().format(), "2023-07-08T04:52:00+09:00");
   });
-  
+
   it("`.utc().format()` はローカルタイムゾーンに依存しない", () => {
     const date1 = dayjs("2023-07-08T04:52:00+09:00");
     const date2 = dayjs("2023-07-07T19:52:00Z");
-    
+
     process.env.TZ = "Asia/Tokyo";
     equal(date1.utc().format(), "2023-07-07T19:52:00Z");
     equal(date2.utc().format(), "2023-07-07T19:52:00Z");
@@ -72,7 +72,7 @@ describe("dayjs", () => {
     equal(date1.utc().format(), "2023-07-07T19:52:00Z");
     equal(date2.utc().format(), "2023-07-07T19:52:00Z");
   });
-  
+
   it("`dayjs('withoutTimezone').format('YYYY-MM-DD')` はローカルタイムゾーンに依存しない（ように見える）", () => {
     const str = "2023-07-08 04:52";
 
@@ -81,5 +81,5 @@ describe("dayjs", () => {
 
     process.env.TZ = "UTC";
     equal(dayjs(str).format("YYYY-MM-DD"), "2023-07-08");
-  });  
+  });
 });
