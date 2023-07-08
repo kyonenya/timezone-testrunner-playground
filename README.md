@@ -49,6 +49,8 @@ dayjs("2022-01-01 00:00:00") // DBから取ってきたUTCの時刻、JSTだと�
 - [nodejs/node-core-test: Node 18's node:test, as an npm package](https://github.com/nodejs/node-core-test)
   - polyfill
 - [Node.js の assert の小話 - from scratch](https://yosuke-furukawa.hatenablog.com/entry/2021/12/27/182526)
+  - node:assert/strict があるよ、という話
+- [Node.js コアモジュールの import/require には `node` schemeがつけられる - from scratch](https://yosuke-furukawa.hatenablog.com/entry/2021/12/27/003424)
 - [play-ts-using/src/index.ts at main · mizchi/play-ts-using · GitHub](https://github.com/mizchi/play-ts-using/blob/main/src/index.ts)
   - テスト例
 
