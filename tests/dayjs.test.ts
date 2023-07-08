@@ -24,16 +24,29 @@ describe("dayjs", () => {
     deepEqual(dayjs(strWithTimezone).$d, new Date("2023-07-07T19:52:00.000Z"));
   });
 
+  it("`.format()` がローカルタイムゾーンに依存している", () => {
+    process.env.TZ = "Asia/Tokyo";
+    const date = dayjs("2023-07-08 04:52");
+    equal(date.format(), "2023-07-08T04:52:00+09:00");
+
+    process.env.TZ = "UTC";
+    notEqual(date.format(), "2023-07-08T04:52:00+09:00"); // UTCだと失敗する
+    equal(date.format(), "2023-07-08T04:52:00+00:00");
+  });
+
   it("`dayjs('withTimezone')` した時点でタイムゾーン情報が欠落している", () => {
     const date = dayjs("2023-07-08T04:52:00+09:00");
-    deepEqual(date.$d, new Date("2023-07-07T19:52:00.000Z")); // Dateオブジェクトはタイムゾーンを持たない（"Z"は見せかけ）
-    
+    deepEqual(date.$d, new Date("2023-07-07T19:52:00.000Z")); // Dateオブジェクトはタイムゾーンを持たない
+
     process.env.TZ = "Asia/Tokyo";
     notEqual(date.format(), "2023-07-08T04:52:00+09:00"); // 想定挙動はこれ
     equal(date.format(), "2023-07-07T19:52:00+09:00"); // 実際の挙動。意味不明
+    deepEqual(date.$d, new Date("2023-07-07T19:52:00.000Z")); // dayjsオブジェクト内部の時刻は一見正しいように見えるが、この"Z"が見せかけにすぎないことが以上より明らか
 
     process.env.TZ = "UTC";
     equal(date.format(), "2023-07-07T19:52:00+00:00");
+    
+    equal(1, 2);
   });
 
   it("`.tz().format()` はローカルタイムゾーンに依存しない", () => {
