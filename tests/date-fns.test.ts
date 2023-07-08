@@ -1,7 +1,7 @@
 import { describe, it } from "node:test";
 import { equal, notEqual } from "node:assert/strict";
 import { parseISO } from "date-fns";
-import { utcToZonedTime } from "date-fns-tz";
+import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
 import { format } from "date-fns";
 
 describe("str-fns", () => {
@@ -37,6 +37,22 @@ describe("str-fns", () => {
         "yyyy-MM-dd HH:mm:ss"
       ),
       "2000-01-01 00:00:00"
+    );
+  });
+
+  it("タイムゾーンなし日付文字列をUTCにパースする", () => {
+    const str = "2000-01-01 00:00:00";
+
+    process.env.TZ = "Asia/Tokyo";
+    equal(
+      zonedTimeToUtc(str, "Asia/Tokyo").toISOString(),
+      "1999-12-31T15:00:00.000Z"
+    );
+
+    process.env.TZ = "UTC";
+    equal(
+      zonedTimeToUtc(str, "Asia/Tokyo").toISOString(),
+      "1999-12-31T15:00:00.000Z"
     );
   });
 });
