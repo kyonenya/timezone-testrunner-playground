@@ -45,8 +45,6 @@ describe("dayjs", () => {
 
     process.env.TZ = "UTC";
     equal(date.format(), "2023-07-07T19:52:00+00:00");
-    
-    equal(1, 2);
   });
 
   it("`.tz().format()` はローカルタイムゾーンに依存しない", () => {
