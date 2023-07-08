@@ -26,6 +26,8 @@ dayjs("2022-01-01 00:00:00") // DBから取ってきたUTCの時刻、JSTだと�
 
 ### timezone
 
+- [JavaScript: date-fns でタイムゾーンを扱う - Qiita](https://qiita.com/suin/items/296740d22624b530f93a)
+  - この記事以外全部 fake
 - [タイムゾーンを意識した Day.js オブジェクトの生成 - Qiita](https://qiita.com/tearoom6/items/252afc24cd3f6edc68a5)
   - `dayjs.tz('2018-01-24T18:53:00+09:00', 'Asia/Tokyo')` は使わないほうがいいとのこと、分かる
   - `tz()` はタイムゾーンなし文字列に対してタイムゾーンを付与するもの
@@ -50,7 +52,7 @@ dayjs("2022-01-01 00:00:00") // DBから取ってきたUTCの時刻、JSTだと�
   - polyfill
 - [Node.js の assert の小話 - from scratch](https://yosuke-furukawa.hatenablog.com/entry/2021/12/27/182526)
   - node:assert/strict があるよ、という話
-- [Node.js コアモジュールの import/require には `node` schemeがつけられる - from scratch](https://yosuke-furukawa.hatenablog.com/entry/2021/12/27/003424)
+- [Node.js コアモジュールの import/require には `node` scheme がつけられる - from scratch](https://yosuke-furukawa.hatenablog.com/entry/2021/12/27/003424)
 - [play-ts-using/src/index.ts at main · mizchi/play-ts-using · GitHub](https://github.com/mizchi/play-ts-using/blob/main/src/index.ts)
   - テスト例
 
