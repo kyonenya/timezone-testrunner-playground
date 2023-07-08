@@ -4,7 +4,7 @@ import { parseISO } from "date-fns";
 import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
 import { format } from "date-fns";
 
-describe("str-fns", () => {
+describe("date-fns", () => {
   it("`parseISO()` はローカルタイムゾーンに依存しない", () => {
     const str1 = "2000-01-01T00:00:00+09:00";
     const str2 = "1999-12-31T15:00:00.000Z";
