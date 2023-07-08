@@ -30,7 +30,7 @@ dayjs("2022-01-01 00:00:00") // DBから取ってきたUTCの時刻、JSTだと�
   - `dayjs.tz('2018-01-24T18:53:00+09:00', 'Asia/Tokyo')` は使わないほうがいいとのこと、分かる
   - `tz()` はタイムゾーンなし文字列に対してタイムゾーンを付与するもの
 - [Vercel 環境でタイムゾーンがズレる場合の対処法 | Tech Blog](https://blog.junpeko.com/consider-vercel-timezone)
-  - Date オブジェクトはミリ秒の情報しか保持しておらず
+  - 「Date オブジェクトはミリ秒の情報しか保持しておらず……」
 - [Day.js の.tz.setDefault()が動かないと思ったけど使い方が間違ってただけだった | DevelopersIO](https://dev.classmethod.jp/articles/day-js-timezone-set-default/)
   - 「.tz() の引数（='Asia/Tokyo'）を省略できるものであり、.tz() 自体は都度呼んであげる必要がある」
 
