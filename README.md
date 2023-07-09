@@ -2,9 +2,10 @@
 
 タイムゾーンまわりの日付処理の検証／Node.js 標準テストランナーの素振り
 
-### クラサバで時刻がずれる問題
+### クライアントとサーバーで時刻がずれる問題
 
-[fix: クラサバのタイムゾーンの相違からHydration Errorが起こる問題 by kyonenya · Pull Request #23 · kyonenya/manuscript](https://github.com/kyonenya/manuscript/pull/23)
+- [fix: クラサバのタイムゾーンの相違からHydration Errorが起こる問題 by kyonenya · Pull Request #23 · kyonenya/manuscript](https://github.com/kyonenya/manuscript/pull/23)
+- [【Next.js】SSRとTimezoneについて調べてみた【Day.js】 - kk-web](https://kk-web.link/blog/20220427)
 
 **結論：dayjs を使ってはいけない**
 
@@ -19,7 +20,7 @@
   - どのメソッドとどのメソッドを組み合わせれば参照透過になるのか、どのメソッドを単体で使うとローカルタイムゾーンという副作用をもつのか、API からまったく見えてこない
 - date-fns を使えば全て解決する
   - [JavaScript: date-fns でタイムゾーンを扱う - Qiita](https://qiita.com/suin/items/296740d22624b530f93a)
-  - [tests/date-fns.test.ts](https://github.com/kyonenya/timezone-testrunner-playground/blob/main/tests/date-fns.test.ts)
+  - [./tests/date-fns.test.ts](https://github.com/kyonenya/timezone-testrunner-playground/blob/main/tests/date-fns.test.ts)
 
 ### timezone
 
@@ -35,16 +36,18 @@
 
 ### node:test
 
-- [テストのスキップ - Node.js の標準 API にテストランナーが追加された](https://azukiazusa.dev/blog/node-js-api/#%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E3%82%B9%E3%82%AD%E3%83%83%E3%83%97)
-- [特定のディレクトリ内の TypeScript ファイルの Node 組み込みテストランナーを実行するには？· 問題 #3902 · nodejs/help](https://github.com/nodejs/help/issues/3902)
-  - node-glob の CLI を使った方法：`"test": "glob -c \"node --loader tsx --no-warnings --test\" \"./tests/**/*.test.ts\"`
-    - [node-test-with-typescript/package.json at main · scottwillmoore/node-test-with-typescript](https://github.com/scottwillmoore/node-test-with-typescript/blob/main/package.json)
-    - [CLI - isaacs/node-glob: glob functionality for node.js](https://github.com/isaacs/node-glob#command-line-interface)
-  - また、追加の依存関係をインストールしたくない非 Windows ユーザー向けの別のソリューションもあります。`"test": "find ./src -name '\*.spec.ts' -exec node --loader @swc-node/register/esm --test {} \\;"`
+[特定のディレクトリ内の TypeScript ファイルの Node 組み込みテストランナーを実行するには？· 問題 #3902 · nodejs/help](https://github.com/nodejs/help/issues/3902)
+
+- ① node-glob の CLI を使った方法
+  - `"test": "glob -c \"node --loader tsx --no-warnings --test\" \"./tests/**/*.test.ts\"`
+  - [node-test-with-typescript/package.json at main · scottwillmoore/node-test-with-typescript](https://github.com/scottwillmoore/node-test-with-typescript/blob/main/package.json)
+  - [CLI - isaacs/node-glob: glob functionality for node.js](https://github.com/isaacs/node-glob#command-line-interface)
+- ②「また、追加の依存関係をインストールしたくない非 Windows ユーザー向けの別のソリューションもあります」
+  - `"test": "find ./src -name '\*.spec.ts' -exec node --loader @swc-node/register/esm --test {} \\;"`
     - https://github.com/nodejs/help/issues/3902#issuecomment-1594672787
-    - https://github.com/kyonenya/timezone-testrunner-playground/issues/1#issue-1793967196
-  - ex. [node-test-with-typescript/ at main · scottwillmoore/node-test-with-typescript · GitHub](https://github.com/scottwillmoore/node-test-with-typescript/tree/main)
+    - ChatGPTによる解説：https://github.com/kyonenya/timezone-testrunner-playground/issues/1#issue-1793967196
 - [Node.js の標準 API にテストランナーが追加された](https://azukiazusa.dev/blog/node-js-api/)
+- [テストのスキップ - Node.js の標準 API にテストランナーが追加された](https://azukiazusa.dev/blog/node-js-api/#%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E3%82%B9%E3%82%AD%E3%83%83%E3%83%97)
 - [test - npm](https://www.npmjs.com/package/test)
   - [nodejs/node-core-test: Node 18's node:test, as an npm package](https://github.com/nodejs/node-core-test)
   - polyfill
@@ -76,6 +79,6 @@
 
 ### pnpm
 
-- [Node.js バージョン管理に fnm を利用する - くらげになりたい。](https://www.memory-lovers.blog/entry/2022/10/30/100000)
 - [Corepack を使用する方法【npm】【yarn】【pnpm】 - Qiita](https://qiita.com/P-man_Brown/items/a75a042813f9a20768fd)
 - [Corepack の使用 - インストール | pnpm](https://pnpm.io/ja/installation#corepack%E3%81%AE%E4%BD%BF%E7%94%A8)
+-  [Node.js バージョン管理に fnm を利用する - くらげになりたい。](https://www.memory-lovers.blog/entry/2022/10/30/100000)
