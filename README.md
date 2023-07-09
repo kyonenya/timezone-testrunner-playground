@@ -4,16 +4,19 @@
 
 ### クラサバで時刻がずれる問題
 
-- 結論：dayjs を使ってはいけない
-  - そもそも `dayjs("2022-01-01 00:00:00")` からして副作用関数
-    - 「Day.js は、デフォルトでは、オブジェクトを生成すると、ローカルタイム扱いになります」
-      - [タイムゾーンを意識した Day.js オブジェクトの生成 - Qiita](https://qiita.com/tearoom6/items/252afc24cd3f6edc68a5)
-  - `.format()` も副作用関数
-    - `.tz().format()` は参照透過。もちろん `toISOString()` も
-  - もし dayjs を使うなら `dayjs('ISODateString').tz().format()` と `dayjs.tz('withoutTimezone').toISOString()` 以外使ってはいけない
-    - しかしこの二つの処理では `.tz()` の意味が別だろ？ ~~無理やりメソッドチェーンにするからこんな曖昧な仕様になるんだよ~~
-  - 結局のところ `dayjs` **オブジェクト**も `Date` オブジェクトと欠陥を抱えており、このライブラリには罠が多すぎる
-    - どのメソッドとどのメソッドを組み合わせれば参照透過になるのか、どのメソッドを単体で使うとローカルタイムゾーンという副作用をもつのか、API からまったく見えてこない
+[fix: クラサバのタイムゾーンの相違からHydration Errorが起こる問題 by kyonenya · Pull Request #23 · kyonenya/manuscript](https://github.com/kyonenya/manuscript/pull/23)
+
+**結論：dayjs を使ってはいけない**
+
+- そもそも `dayjs("2022-01-01 00:00:00")` からして副作用関数
+  - 「Day.js は、デフォルトでは、オブジェクトを生成すると、ローカルタイム扱いになります」
+    - [タイムゾーンを意識した Day.js オブジェクトの生成 - Qiita](https://qiita.com/tearoom6/items/252afc24cd3f6edc68a5)
+- `.format()` も副作用関数
+  - `.tz().format()` は参照透過。もちろん `toISOString()` も
+- もし dayjs を使うなら `dayjs('ISODateString').tz().format()` と `dayjs.tz('withoutTimezone').toISOString()` 以外使ってはいけない
+  - しかしこの二つの処理では `.tz()` の意味が別だろ？ ~~無理やりメソッドチェーンにするからこんな曖昧な仕様になるんだよ~~
+- 結局のところ `dayjs` **オブジェクト**も `Date` オブジェクトと欠陥を抱えており、このライブラリには罠が多すぎる
+  - どのメソッドとどのメソッドを組み合わせれば参照透過になるのか、どのメソッドを単体で使うとローカルタイムゾーンという副作用をもつのか、API からまったく見えてこない
 - date-fns を使えば全て解決する
   - [JavaScript: date-fns でタイムゾーンを扱う - Qiita](https://qiita.com/suin/items/296740d22624b530f93a)
   - [tests/date-fns.test.ts](https://github.com/kyonenya/timezone-testrunner-playground/blob/main/tests/date-fns.test.ts)
@@ -42,7 +45,8 @@
     - https://github.com/kyonenya/timezone-testrunner-playground/issues/1#issue-1793967196
   - ex. [node-test-with-typescript/ at main · scottwillmoore/node-test-with-typescript · GitHub](https://github.com/scottwillmoore/node-test-with-typescript/tree/main)
 - [Node.js の標準 API にテストランナーが追加された](https://azukiazusa.dev/blog/node-js-api/)
-- [nodejs/node-core-test: Node 18's node:test, as an npm package](https://github.com/nodejs/node-core-test)
+- [test - npm](https://www.npmjs.com/package/test)
+  - [nodejs/node-core-test: Node 18's node:test, as an npm package](https://github.com/nodejs/node-core-test)
   - polyfill
 - [Node.js の assert の小話 - from scratch](https://yosuke-furukawa.hatenablog.com/entry/2021/12/27/182526)
   - node:assert/strict があるよ、という話
